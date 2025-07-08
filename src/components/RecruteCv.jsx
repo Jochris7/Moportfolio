@@ -1,15 +1,14 @@
 // src/components/RecruiterCV.jsx
 import React from 'react';
 import styled from 'styled-components';
-import DevMlCV from './DevMLCV'; // Importe le composant Jupyter
+import DevMlCV from './DevMLCV'; // ✅ Nom du fichier exact
 import CyberLinuxCV from './CyberLinuxCV';
 import { motion } from 'framer-motion';
 
-
 // Conteneur principal pour les deux sections du CV
 const RecruiterCVSection = styled(motion.section)`
-  padding: 80px 0; /* Padding vertical pour cette section */
-  background-color: #20232a; /* Fond sombre pour la section globale CV */
+  padding: 80px 0;
+  background-color: #20232a;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,7 +16,7 @@ const RecruiterCVSection = styled(motion.section)`
   width: 100%;
 `;
 
-// Optionnel: Un titre global pour cette section si vous en voulez un
+// Titre de la section
 const GlobalCvTitle = styled.h1`
   font-size: 3em;
   color: #eceff4;
@@ -29,7 +28,7 @@ export default function RecruiterCV() {
   return (
     <RecruiterCVSection>
       <GlobalCvTitle>Mon Curriculum Vitae Technique</GlobalCvTitle>
-      <DevMlCV />
+      <DevMlCV />        {/* ✅ Le composant exporté depuis DevMLCV.jsx */}
       <CyberLinuxCV />
     </RecruiterCVSection>
   );
