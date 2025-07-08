@@ -14,7 +14,7 @@ import videoPrediction from '../assets/Projets/predictionBenefices.mkv';
 import videoTodoList from '../assets/Projets/todolist.mkv';
 
 import figmaAppFood from '../assets/Projets/figma-appfood.png';
-import uiApp from '../assets/Projets/UIApp.png';
+import uiApp from '../assets/Projets/UIapp.png'
 
 const projectsData = [
     {
