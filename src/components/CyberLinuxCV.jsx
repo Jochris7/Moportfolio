@@ -18,12 +18,24 @@ const CyberLinuxCVContainer = styled(motion.div)`
   max-width: 850px;
   width: 100%;
   margin: 40px auto;
-  overflow: hidden;
+  overflow: hidden; /* Important pour gérer les débordements internes */
   text-align: left;
   font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace; /* Terminal font */
   color: #eee; /* Default text color */
   font-size: 0.95em;
   line-height: 1.5;
+
+  @media (max-width: 768px) {
+    margin: 30px auto; /* Réduire la marge */
+    padding: 25px; /* Réduire le padding */
+    font-size: 0.9em; /* Légèrement plus petit pour tablettes */
+  }
+
+  @media (max-width: 480px) {
+    margin: 20px auto; /* Encore plus petit pour mobiles */
+    padding: 15px; /* Padding minimal */
+    font-size: 0.8em; /* Taille de police adaptée aux petits écrans */
+  }
 `;
 
 // CV Section Title
@@ -33,6 +45,16 @@ const CvSectionTitle = styled.h2`
   margin-bottom: 30px;
   text-align: center;
   font-weight: 600;
+
+  @media (max-width: 768px) {
+    font-size: 1.8em; /* Plus petit sur tablettes */
+    margin-bottom: 25px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.5em; /* Encore plus petit sur mobiles */
+    margin-bottom: 20px;
+  }
 `;
 
 // Terminal command line
@@ -40,24 +62,41 @@ const TerminalPrompt = styled.div`
   display: flex;
   align-items: baseline;
   margin-bottom: 5px;
+  flex-wrap: wrap; /* PERMET AU CONTENU DE PASSER À LA LIGNE */
 
   &::before {
     content: '┌──(johan@kali)-[~/portfolio]'; /* Base prompt */
     color: #00ff00; /* Green for user@machine */
     margin-right: 5px;
+    white-space: nowrap; /* Empêche le prompt de se couper, il passera à la ligne entière si besoin */
   }
   &::after {
     content: '─$'; /* The final dollar sign */
     color: #eee;
     margin-left: 5px;
+    white-space: nowrap; /* Empêche le '$' de se couper */
+  }
+
+  @media (max-width: 480px) {
+    /* Raccourcir le prompt pour les très petits écrans si nécessaire */
+    &::before {
+        content: 'johan@kali:~/$'; /* Prompt plus court sur mobile */
+        margin-right: 2px;
+        font-size: 0.9em; /* Réduire la taille de la police du prompt */
+    }
+    &::after {
+        content: ''; /* Supprimer le '─$' pour un prompt très court */
+        margin-left: 0;
+    }
   }
 `;
 
 // For the typed input (text following the prompt)
 const TerminalInput = styled.span`
   color: #eee; /* Color of the typed text */
-  white-space: pre-wrap;
-  word-break: break-word;
+  white-space: pre-wrap; /* Maintient les sauts de ligne */
+  word-break: break-word; /* Permet aux mots très longs de se casser */
+  flex-grow: 1; /* Permet au texte de prendre l'espace restant dans le flex container */
 `;
 
 // For the blinking cursor indicator
@@ -68,6 +107,10 @@ const Cursor = styled.span`
   background-color: #eee; /* Cursor color */
   animation: ${blink} 1s infinite step-end;
   vertical-align: middle; /* Align with text */
+
+  @media (max-width: 480px) {
+    width: 6px; /* Rendre le curseur plus petit */
+  }
 `;
 
 // For terminal output text
@@ -75,14 +118,25 @@ const TerminalOutput = styled.div`
   color: #ccc; /* Output color */
   margin-left: 20px; /* Indentation for output */
   margin-bottom: 15px;
-  white-space: pre-wrap;
-  word-break: break-word;
+  white-space: pre-wrap; /* Maintient les sauts de ligne */
+  word-break: break-word; /* Permet aux mots très longs de se casser */
+  overflow-x: auto; /* AJOUT IMPORTANT : Permet le défilement horizontal si le texte est trop long */
+  padding-bottom: 5px; /* Pour que le scrollbar ne cache pas le texte */
+
+  @media (max-width: 480px) {
+    margin-left: 10px; /* Réduire l'indentation */
+    margin-bottom: 10px;
+  }
 `;
 
 // Style for output lines with '> '
 const OutputPrefix = styled.span`
   color: #ffcc00; /* Yellow/Orange for the output prefix */
   margin-right: 5px;
+
+  @media (max-width: 480px) {
+    margin-right: 2px;
+  }
 `;
 
 // Specific styles for colors in Nmap output
@@ -117,12 +171,15 @@ const LsLinkTarget = styled.a`
   &:hover {
     color: #4a90e2; /* Darker blue on hover */
   }
+
+  @media (max-width: 480px) {
+    word-break: break-all; /* Permet aux URLs très longues de se casser sur plusieurs lignes */
+  }
 `;
 
 const LsFileName = styled.span`
   color: #f0f0f0; /* White for the file name (link name) */
 `;
-
 
 export default function CyberLinuxCV() {
   return (

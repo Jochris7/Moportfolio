@@ -56,7 +56,6 @@ const ContentWrapper = styled.div`
     }
 `;
 
-// ContactInfo est réintroduit ici
 const ContactInfo = styled(motion.div)`
     flex: 1; /* Il prendra une part de l'espace dans le flexbox */
     min-width: 300px; /* Largeur minimale pour l'info bloc */
@@ -87,12 +86,18 @@ const InfoItem = styled.div`
         display: flex;
         align-items: center;
         gap: 10px;
+        @media (max-width: 480px) { /* Réduction de la taille sur très petits écrans */
+            font-size: 1.4em;
+        }
     }
     p, a {
         font-size: 1.1em;
         color: #abb2bf;
         text-decoration: none;
         word-break: break-all;
+        @media (max-width: 480px) { /* Réduction de la taille sur très petits écrans */
+            font-size: 1em;
+        }
     }
     a:hover {
         color: #e0e0e0;
@@ -113,7 +118,7 @@ const StyledForm = styled(motion.form)`
 
     @media (max-width: 768px) {
         padding: 30px;
-        min-width: unset;
+        min-width: unset; /* Annule le min-width sur mobile pour plus de flexibilité */
         width: 90%;
     }
 `;
@@ -201,7 +206,6 @@ const Message = styled(motion.p)`
     color: ${props => (props.type === 'success' ? '#00bf8f' : '#e74c3c')};
 `;
 
-// ImageGallery est maintenant un wrapper pour ContactInfo et la deuxième image
 const BottomContentWrapper = styled(motion.div)`
     display: flex;
     flex-wrap: wrap;
@@ -219,19 +223,36 @@ const BottomContentWrapper = styled(motion.div)`
     }
 `;
 
-
 const StyledImage = styled(motion.img)`
     width: 100%;
     max-width: 400px;
-    height: 300px; /* Hauteur fixe pour que les deux blocs soient à peu près de même taille */
     object-fit: cover;
     border-radius: 15px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     border: 3px solid #00bf8f;
 
+    /* Hauteurs spécifiques par image et réactives */
+    ${props => props.alt === "Votre photo professionnelle" && `
+        height: 630px;
+        @media (max-width: 768px) {
+            height: 450px; /* Réduire pour tablettes */
+        }
+        @media (max-width: 480px) {
+            height: 350px; /* Réduire pour petits mobiles */
+        }
+    `}
+    ${props => props.alt === "Votre photo en veste" && `
+        height: 670px;
+        @media (max-width: 768px) {
+            height: 500px; /* Réduire pour tablettes */
+        }
+        @media (max-width: 480px) {
+            height: 400px; /* Réduire pour petits mobiles */
+        }
+    `}
+
     @media (max-width: 768px) {
         max-width: 90%;
-        height: 250px;
     }
 `;
 
@@ -327,8 +348,7 @@ export default function Contact() {
                         src={image1}
                         alt="Votre photo professionnelle"
                         variants={itemVariants}
-                        // Styles spécifiques pour cette image pour qu'elle agisse comme un "côté" du formulaire
-                        style={{ flex: 1, minWidth: '300px', maxWidth: '400px', height: '630px', objectFit: 'cover' }}
+                        // Les styles de hauteur sont maintenant gérés dans StyledImage
                     />
 
                     {/* Le formulaire reste ici */}
@@ -405,7 +425,7 @@ export default function Contact() {
 
                     {/* La deuxième image à droite */}
                     <StyledImage src={image2} alt="Votre photo en veste" variants={itemVariants}
-                        style={{ flex: 1, minWidth: '300px', maxWidth: '400px', height: '670px', objectFit: 'cover' }}
+                        // Les styles de hauteur sont maintenant gérés dans StyledImage
                     />
                 </BottomContentWrapper>
             </ContactSection>

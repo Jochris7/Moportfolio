@@ -62,6 +62,14 @@ const CarouselSection = styled.section`
   flex-direction: column;
   align-items: center;
   overflow: hidden; // Cache le débordement horizontal du conteneur principal
+
+  @media (max-width: 768px) {
+    padding: 60px 0; // Réduire le padding vertical sur les tablettes
+  }
+
+  @media (max-width: 480px) {
+    padding: 40px 0; // Réduire encore plus sur les petits mobiles
+  }
 `;
 
 const SectionTitle = styled.h2`
@@ -69,6 +77,18 @@ const SectionTitle = styled.h2`
   color: #00bf8f;
   margin-bottom: 50px;
   text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 2em; // Plus petit sur les tablettes
+    margin-bottom: 40px;
+    padding: 0 20px; /* Ajouter un peu de padding horizontal pour ne pas coller les bords */
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.6em; // Encore plus petit sur les mobiles
+    margin-bottom: 30px;
+    padding: 0 15px; /* Ajuster padding */
+  }
 `;
 
 const CarouselContainer = styled.div`
@@ -86,6 +106,10 @@ const ProgressSVG = styled.svg`
   transform: rotate(-90deg);
   // Centrage de l'indicateur par rapport au carrousel, ou positionnement fixe si nécessaire
   // Pour cet exemple, je le place en absolu dans le CarouselContainer
+
+  @media (max-width: 768px) {
+    display: none; /* Cache le SVG de progression sur les petits écrans s'il n'est pas pertinent */
+  }
 `;
 
 const ProgressCircleBg = styled.circle`
@@ -111,6 +135,8 @@ const ServiceList = styled(motion.ul)`
   gap: 30px; // Espace entre les services
   width: 100%; // Pour que le overflow scroll fonctionne bien
   box-sizing: border-box; // Pour inclure le padding dans la largeur
+  scroll-snap-type: x mandatory; /* Ajouté pour un défilement par "carte" */
+  -webkit-overflow-scrolling: touch; /* Améliore le défilement sur iOS */
 
   /* Styles pour la scrollbar (Webkit) */
   &::-webkit-scrollbar {
@@ -128,6 +154,24 @@ const ServiceList = styled(motion.ul)`
   &::-webkit-scrollbar-corner {
     background: #444;
   }
+
+  @media (max-width: 768px) {
+    height: 220px; /* Légèrement plus petit sur tablette */
+    padding: 15px 10px; /* Réduire le padding horizontal pour les items */
+    gap: 20px; /* Réduire l'espace entre les services */
+  }
+
+  @media (max-width: 480px) {
+    height: 200px; /* Plus petit sur mobile */
+    padding: 10px 5px; /* Padding minimal */
+    gap: 15px; /* Espace minimal */
+    /* Cache la scrollbar sur les petits écrans car le snap-scrolling est suffisant */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    /* Pour Firefox */
+    scrollbar-width: none;
+  }
 `;
 
 const ServiceItem = styled.li`
@@ -143,6 +187,7 @@ const ServiceItem = styled.li`
   text-align: center;
   transition: transform 0.2s ease-in-out;
   cursor: grab; // Indique que l'élément est "attrapable"
+  scroll-snap-align: start; /* Ajouté pour que le défilement s'arrête sur chaque carte */
 
   &:active {
     cursor: grabbing;
@@ -158,6 +203,36 @@ const ServiceItem = styled.li`
     font-size: 0.95em;
     color: #abb2bf;
     line-height: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    flex: 0 0 240px; /* Réduire la taille de chaque élément de service */
+    padding: 18px;
+
+    h3 {
+      font-size: 1.4em;
+    }
+
+    p {
+      font-size: 0.9em;
+    }
+  }
+
+  @media (max-width: 480px) {
+    flex: 0 0 200px; /* Réduire encore plus la taille de chaque élément pour les petits mobiles */
+    padding: 15px;
+
+    h3 {
+      font-size: 1.2em;
+    }
+
+    p {
+      font-size: 0.8em;
+    }
+  }
+
+  @media (max-width: 320px) { /* Pour les écrans très petits */
+    flex: 0 0 90%; /* Occupe une grande partie de la largeur de l'écran */
   }
 `;
 

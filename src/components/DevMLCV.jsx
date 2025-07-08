@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion'; 
 
 // Styles pour le conteneur global du CV Dev/ML (inchangés)
+// Styles pour le conteneur global du CV Dev/ML
 const DevMlCVContainer = styled(motion.div)`
   background-color: #f7f7f7;
   border-radius: 12px;
@@ -12,20 +13,40 @@ const DevMlCVContainer = styled(motion.div)`
   max-width: 850px;
   width: 100%;
   margin: 40px auto;
-  overflow: hidden;
+  overflow: hidden; /* Important pour gérer les débordements */
   text-align: left;
+
+  @media (max-width: 768px) {
+    margin: 30px auto;
+    padding: 25px;
+  }
+
+  @media (max-width: 480px) {
+    margin: 20px auto;
+    padding: 15px;
+  }
 `;
 
-// Titre de la section CV (inchangé)
+// Titre de la section CV
 const CvSectionTitle = styled.h2`
   font-size: 2.2em;
   color: #333;
   margin-bottom: 30px;
   text-align: center;
   font-weight: 600;
+
+  @media (max-width: 768px) {
+    font-size: 1.8em;
+    margin-bottom: 25px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }
 `;
 
-// Conteneur pour une cellule de code Jupyter (inchangé)
+// Conteneur pour une cellule de code Jupyter
 const CodeCell = styled.div`
   background-color: #ffffff;
   border: 1px solid #ddd;
@@ -36,22 +57,41 @@ const CodeCell = styled.div`
   font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
   font-size: 0.95em;
   line-height: 1.5;
-  white-space: pre-wrap;
-  word-break: break-word;
+  white-space: pre-wrap; /* Maintient les espaces et retours à la ligne */
+  word-break: break-word; /* Permet aux mots longs de se couper */
   position: relative;
+  overflow-x: auto; /* Ajouté pour le défilement horizontal si le code est trop large */
+  padding-left: 70px; /* Espace pour le numéro de cellule */
 
   &::before {
     content: 'In [1]:';
     position: absolute;
-    left: -60px;
+    left: 5px; /* Positionnement ajusté pour laisser plus de place */
     top: 15px;
     font-size: 0.8em;
     color: #999;
     font-family: sans-serif;
   }
+
+  @media (max-width: 768px) {
+    padding: 12px 15px;
+    font-size: 0.9em;
+    padding-left: 65px; /* Ajuster padding-left */
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px 10px;
+    font-size: 0.8em; /* Réduire la taille de police sur mobile */
+    padding-left: 55px; /* Réduire encore le padding-left */
+
+    &::before {
+      font-size: 0.7em; /* Rendre le 'In [1]:' plus petit */
+      left: 3px;
+    }
+  }
 `;
 
-// Conteneur pour le résultat d'une cellule de code Jupyter (inchangé)
+// Conteneur pour le résultat d'une cellule de code Jupyter
 const OutputCell = styled.div`
   background-color: #f0f0f0;
   border: 1px solid #ddd;
@@ -66,19 +106,39 @@ const OutputCell = styled.div`
   word-break: break-word;
   border-left: 4px solid #ccc;
   position: relative;
+  overflow-x: auto; /* Ajouté pour le défilement horizontal si la sortie est trop large */
+  padding-left: 70px; /* Espace pour le numéro de cellule */
+
 
   &::before {
     content: 'Out[1]:';
     position: absolute;
-    left: -60px;
+    left: 5px; /* Positionnement ajusté */
     top: 10px;
     font-size: 0.8em;
     color: #999;
     font-family: sans-serif;
   }
+
+  @media (max-width: 768px) {
+    padding: 8px 15px;
+    font-size: 0.85em;
+    padding-left: 65px; /* Ajuster padding-left */
+  }
+
+  @media (max-width: 480px) {
+    padding: 6px 10px;
+    font-size: 0.75em; /* Réduire la taille de police sur mobile */
+    padding-left: 55px; /* Réduire encore le padding-left */
+
+    &::before {
+      font-size: 0.7em; /* Rendre le 'Out[1]:' plus petit */
+      left: 3px;
+    }
+  }
 `;
 
-// Styles pour les listes dans les cellules (inchangés)
+// Styles pour les listes dans les cellules
 const PythonList = styled.ul`
   list-style-type: none;
   padding-left: 0;
@@ -97,25 +157,29 @@ const LsLinkTarget = styled.a`
   &:hover {
     color: #4a90e2; /* Darker blue on hover */
   }
+
+  @media (max-width: 480px) {
+    word-break: break-all; /* Permet aux URLs très longues de se casser */
+  }
 `;
 
-// Styles pour les commentaires Python (inchangés)
+// Styles pour les commentaires Python
 const PythonComment = styled.span`
   color: #2e8b57;
 `;
 
-// Styles pour les chaînes de caractères Python (inchangés)
+// Styles pour les chaînes de caractères Python
 const PythonString = styled.span`
   color: #b22222;
 `;
 
-// Styles pour les mots-clés Python (inchangés)
+// Styles pour les mots-clés Python
 const PythonKeyword = styled.span`
   color: #8a2be2;
   font-weight: bold;
 `;
 
-// Styles pour les noms de fonctions/classes (inchangés)
+// Styles pour les noms de fonctions/classes
 const PythonFunctionName = styled.span`
   color: #4682b4;
 `;
