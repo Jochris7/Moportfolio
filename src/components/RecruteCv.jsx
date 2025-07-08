@@ -1,9 +1,10 @@
 // src/components/RecruiterCV.jsx
 import React from 'react';
 import styled from 'styled-components';
-import DevMlCV from './DevMLcv'; // Importe le composant Jupyter
+import DevMlCV from './DevMLCV'; // Importe le composant Jupyter
 import CyberLinuxCV from './CyberLinuxCV';
 import { motion } from 'framer-motion';
+
 
 // Conteneur principal pour les deux sections du CV
 const RecruiterCVSection = styled(motion.section)`
