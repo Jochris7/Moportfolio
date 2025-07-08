@@ -9,7 +9,7 @@ import Projets from './Projets/Index.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-     <Router>
+     <Router basename="/">
       <Routes>
         <Route path="/" element={<Acceuil />} />
         <Route path="/Competences" element={<Competences />} />
